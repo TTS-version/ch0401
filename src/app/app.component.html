@@ -1,0 +1,109 @@
+<h2 *ngIf="shouldShow">测试是否显示</h2>
+<input type="button" value="切换" (click)="onTOggle()">
+
+<p *ngIf=" score < 60">不及格</p>
+<p *ngIf=" score >= 60 && score < 70">及格</p>
+<p *ngIf=" score >= 70 && score < 80">中等</p>
+<p *ngIf=" score >= 80 && score < 90">良好</p>
+<p *ngIf=" score >= 90">优秀</p>
+
+<div [ngSwitch]="grade()">
+  <P *ngSwitchCase="6">及格</P>
+  <P *ngSwitchCase="7">中等</P>
+  <P *ngSwitchCase="8">良好</P>
+  <P *ngSwitchCase="9">优秀</P>
+  <P *ngSwitchCase="10">满分</P>
+  <p *ngSwitchDefault>其他</p>
+</div>
+
+<input type="number" (value)="score" (input)="onInput($event)">
+
+<p [style.background-color]="'red'">这里是直接采用style属性</p>
+<p [ngStyle]="{'background-color':'red'}">这里是采用ngstyle</p>
+
+<form>
+  <h3>动态使用 ngstyle</h3>
+  <div class="form-group">
+    <label for="iptColor">颜色 </label>
+    <input type="text" class="form-control" id="iptColor" aria-describedby="emailHelp" placeholder="输入颜色" #colorinput>
+  </div>
+  <div class="form-group">
+    <label for="ipTextSize"> 字体大小 </label>
+    <input type="text" class="form-control" id="ipTextSize" aria-describedby="emailHelp" placeholder="输入字体大小"
+      #fontinput>
+  </div>
+  <a class="btn btn-primary" href="#" role="button" (click)="apply(colorinput.value,fontinput.value)">应用设置</a>
+</form>
+
+<div>
+  <span [ngStyle]="{color: 'red'}" [style.font-size]="fontSize">
+    红色文本
+  </span>
+</div>
+
+<div [style.background-color]="color" style="color: white;">
+  {{color}} 背景色
+</div>
+
+<div [ngStyle]="{'color':'white','background-color': color ,'font-size' : fontSize}">
+  使用ngStyle动态修改
+</div>
+
+
+
+
+
+<h3>使用ngClass</h3>
+<div [ngClass]="classObj">采用jsno对象属性方式 </div>
+<div [ngClass]="{bordered: isBordered ,blue:true ,round: true}">有边框</div>
+<div [ngClass]="{bordered: !isBordered}">无边框</div>
+<div [ngClass]="['bordered','blue','round']">采用另一种方式 </div>
+
+<a class="btn btn-primary"  href="#" (click)="onTOgglBorder()">切换边框</a>
+
+<h3>使用ngFor指令</h3>
+<ul>
+  <li *ngFor='let city of cities'>{{city}}</li>
+</ul>
+
+<h4>表格案例</h4>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+    <th scope="col">名字</th>
+    <th scope="col">年龄</th>
+    <th scope="col">城市</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let poeplelist of people;let i=index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{poeplelist.name}}</td>
+      <td>{{poeplelist.age}}</td>
+      <td>{{poeplelist.city}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>嵌套使用ngFor</h4>
+<div *ngFor="let poeplelist2 of peopleByCity">
+  <h2>{{poeplelist2.city}}</h2>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+      <th scope="col">名字</th>
+      <th scope="col">年龄</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let poeplelist of poeplelist2.people;let i=index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{poeplelist.name}}</td>
+        <td>{{poeplelist.age}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
